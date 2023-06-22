@@ -17,14 +17,19 @@ def parse_args():
     #parser.add_argument("--dataset_root", type=str, default="/data_root")
     #! training
     parser.add_argument("--dataset_root", type=str, default="./dataset")
-    parser.add_argument("--dataset", type=str, default="DUTSTR")
-    parser.add_argument("--test_dataset", type=str, default="benchmark_DUTS-TE")
+    
+    #! DUTS
+    # parser.add_argument("--dataset", type=str, default="DUTSTR")
+    # parser.add_argument("--test_dataset", type=str, default="benchmark_DUTS-TE")
+    #! DUTS + SeRM
+    parser.add_argument("--dataset", type=str, default="DUTSTR_SERM")
+    parser.add_argument("--test_dataset", type=str, default="benchmark_SeRM-TE")
 
     # training setups
     parser.add_argument("--lr", type=float, default=1e-4)
     parser.add_argument("--decay_step", type=int, default=40)
     parser.add_argument("--img_size", type=int, default=224)
-    parser.add_argument("--batch_size", type=int, default=4)
+    parser.add_argument("--batch_size", type=int, default=16)
     parser.add_argument("--max_epoch", type=int, default=200)
     parser.add_argument("--num_workers", type=int, default=8)
     parser.add_argument("--gclip", type=int, default=0)

@@ -14,12 +14,13 @@ class Benchmark(data.BaseDataset):
             self.name = opt.dataset.split('_')[1]
 
         dir_MASK, dir_IMG = self.get_subdir()
+        
         if self.name == 'HKUIS':
             self.MASK_paths = sorted(glob.glob(os.path.join(root, dir_MASK, "*.png")))
             self.IMG_paths = sorted(glob.glob(os.path.join(root, dir_IMG, "*.png")))
         else:
-            self.MASK_paths = sorted(glob.glob(os.path.join(root, dir_MASK, "*.png")))
-            self.IMG_paths = sorted(glob.glob(os.path.join(root, dir_IMG, "*.jpg")))
+            self.MASK_paths = sorted(glob.glob(os.path.join(root, dir_MASK, "*")))
+            self.IMG_paths = sorted(glob.glob(os.path.join(root, dir_IMG, "*")))
         
         
         #self.IMG_paths = sorted(glob.glob(os.path.join(root, "dataset_root/dataset/STheReO_Dataset/kaist_afternoon/image/case2/HE/*.png")))
@@ -29,10 +30,8 @@ class Benchmark(data.BaseDataset):
         super().__init__(phase, opt)
 
     def get_subdir(self):
-        # dir_MASK = "benchmark/{}/Masks".format(self.name)
-        # dir_IMG = "benchmark/{}/Images".format(self.name)
-        dir_MASK = "benchmark/{}/DUTS-TE-Mask".format(self.name)
-        dir_IMG = "benchmark/{}/DUTS-TE-Image".format(self.name)
+        dir_MASK = "benchmark/{}/{}-Mask".format(self.name, self.name)
+        dir_IMG = "benchmark/{}/{}-Image".format(self.name, self.name)
 
         
         return dir_MASK, dir_IMG

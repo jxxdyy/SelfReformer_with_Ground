@@ -15,9 +15,12 @@ def generate_loader(phase, opt):
         mname = importlib.import_module("data.benchmark")
         cname = "Benchmark" # Benchmark class
     else:
-        if "DUTSTR" in opt.dataset:
+        if "DUTSTR" == opt.dataset:
             mname = importlib.import_module("data.dutstr")
-
+        
+        elif "SERM" in opt.dataset:
+            mname = importlib.import_module("data.dutstr_serm")
+            
         elif "benchmark" in opt.dataset:
             mname = importlib.import_module("data.benchmark")
             cname = "Benchmark"
@@ -31,8 +34,8 @@ def generate_loader(phase, opt):
         "drop_last": phase == "train",
     }
 
-    print("mname :", mname)
-    print("cnmae :", cname)
+    print("module_name :", mname)
+    print("class_name :", cname)
     dataset = getattr(mname, cname)(phase, opt)
     num_samples = len(dataset)
     print("num_samples :", num_samples)
