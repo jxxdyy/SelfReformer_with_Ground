@@ -47,6 +47,7 @@ class Solver():
             power = (step+1)//opt.decay_step
             self.optim.param_groups[0]['lr'] = opt.lr * 0.1 * (0.5 ** power)   # for base
             self.optim.param_groups[1]['lr'] = opt.lr * (0.5 ** power)         # for head
+            print("======================= Epoch {} =======================".format(step+1))
             print('LR base: {}, LR head: {}'.format(self.optim.param_groups[0]['lr'],
                                                     self.optim.param_groups[1]['lr']))
             
@@ -75,6 +76,8 @@ class Solver():
         print('evaluate...')
         mae = self.evaluate()
 
+        # print("current mae : ", mae)
+        # print("current best mae :", self.best_mae)
         if mae < self.best_mae:
             self.best_mae, self.best_step = mae, step + 1
             self.save(step)
@@ -119,9 +122,10 @@ class Solver():
                 io.imsave(save_path_sal, pred_sal)
 
             mae += calculate_mae(MASK, pred_sal)
+        
         self.net.train()
 
-        return mae / len(self.eval_loader)
+        return (mae / len(self.eval_loader)) /100
 
     def load(self, path):
         state_dict = torch.load(path, map_location=lambda storage, loc: storage)
@@ -129,6 +133,7 @@ class Solver():
         return
 
     def save(self, step):
+        print("-------- Save the best check point! --------")
         os.makedirs(self.opt.ckpt_root, exist_ok=True)
         save_path = os.path.join(self.opt.ckpt_root, str(step)+".pt")
         torch.save(self.net.state_dict(), save_path)

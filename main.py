@@ -23,13 +23,13 @@ def main():
         logger.update_txt(msg + '\n', mode='w')
 
 
-    start_time = time.time_ns()
+    # start_time = time.time_ns()
     
     if opt.test_only:
         
         tester = Tester(module, opt)
         ckpt = glob.glob('{}/{}'.format(opt.ckpt_root, opt.pretrain))
-        #print('dddd', ckpt)
+
         assert len(ckpt)!=0, "cannot find checkpoint {} in {}".format(opt.pretrain, opt.ckpt_root)
         print("Evaluate {} (loaded from {}) on {} dataset".format(opt.model,
                                                                   ckpt[0],
@@ -44,8 +44,8 @@ def main():
         solver.fit()
 
 
-    end_time = time.time_ns()
-    print('전체 코드 실행 시간(나노초 ns) : <<%10d>>' % (end_time - start_time)) 
+    # end_time = time.time_ns()
+    # print('전체 코드 실행 시간(나노초 ns) : <<%10d>>' % (end_time - start_time)) 
 
 
 if __name__ == "__main__":

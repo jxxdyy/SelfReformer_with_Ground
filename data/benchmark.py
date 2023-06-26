@@ -22,10 +22,6 @@ class Benchmark(data.BaseDataset):
             self.MASK_paths = sorted(glob.glob(os.path.join(root, dir_MASK, "*")))
             self.IMG_paths = sorted(glob.glob(os.path.join(root, dir_IMG, "*")))
         
-        
-        #self.IMG_paths = sorted(glob.glob(os.path.join(root, "dataset_root/dataset/STheReO_Dataset/kaist_afternoon/image/case2/HE/*.png")))
-        #self.IMG_paths = sorted(glob.glob(os.path.join(root, "dataset_root/dataset/STheReO_Dataset/valley_morning/image/HE2/*.png")))
-        #self.IMG_paths = sorted(glob.glob(os.path.join(root, "dataset_root/dataset/Private_Dataset/neubie24/campus/230516/campus_seq2/HE/*.png")))
 
         super().__init__(phase, opt)
 
