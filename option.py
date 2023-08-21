@@ -23,7 +23,7 @@ def parse_args():
     # parser.add_argument("--test_dataset", type=str, default="benchmark_DUTS-TE")
     #! DUTS + SeRM
     parser.add_argument("--dataset", type=str, default="DUTSTR_SERM")
-    parser.add_argument("--test_dataset", type=str, default="benchmark_SeRM-TE")
+    parser.add_argument("--test_dataset", type=str, default="benchmark_DUTS-TE-SeRM5-neg")
 
     # training setups
     parser.add_argument("--lr", type=float, default=1e-4)
@@ -44,9 +44,9 @@ def parse_args():
     parser.add_argument("--save_every_ckpt", action="store_true") # save ckpt
     parser.add_argument("--save_result", action="store_true", default=True) # save pred
     parser.add_argument("--save_all", action="store_true", default=False) # save each stage result
-    parser.add_argument("--ckpt_root", type=str, default="./ckpt")
-    parser.add_argument("--save_root", type=str, default="./output/saliency_data/Private/")
-    parser.add_argument("--save_msg", type=str, default="campus_seq2(3.0_3.0)")
+    parser.add_argument("--ckpt_root", type=str, default="./ckpt/case6")
+    parser.add_argument("--save_root", type=str, default="./output/saliency_data/SeRM/")
+    parser.add_argument("--save_msg", type=str, default="case6")
 
     return parser.parse_args()
 

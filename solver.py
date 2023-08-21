@@ -15,9 +15,16 @@ class Solver():
         self.logger = LogWritter(opt)
         
         self.dev = torch.device("cuda:{}".format(opt.GPU_ID) if torch.cuda.is_available() else "cpu")
-        self.net = module.Net(opt)
-        self.net = self.net.to(self.dev)
-            
+        #! Single GPU
+        # self.net = module.Net(opt)
+        # self.net = self.net.to(self.dev)
+        #! Multi GPU
+        self.net = module.Net(opt).cuda()
+        self.net = nn.DataParallel(self.net).to(self.dev)
+        
+        print("Device :", self.dev)
+        print("Count of using GPUs :", torch.cuda.device_count())
+        print("Current cuda device :", torch.cuda.current_device())
         msg = "# params:{}\n".format(sum(map(lambda x: x.numel(), self.net.parameters())))
         print(msg)
         self.logger.update_txt(msg)
@@ -125,7 +132,7 @@ class Solver():
         
         self.net.train()
 
-        return (mae / len(self.eval_loader)) /100
+        return (mae / len(self.eval_loader)) / 100
 
     def load(self, path):
         state_dict = torch.load(path, map_location=lambda storage, loc: storage)
